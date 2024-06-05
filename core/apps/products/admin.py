@@ -6,9 +6,5 @@ from core.apps.products.models.products import Product
 # @admin.site.register(Product)
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "title",
-        "created_at",
-        "updated_at",
-    )
+    list_display = ("id", "title", "created_at", "updated_at", "is_visible")
+    list_display_links = ("id", "title")
