@@ -1,12 +1,11 @@
 from datetime import datetime
 
-from pydantic import BaseModel
-
 from core.apps.products.entities.products import Product as ProductEntity
+from pydantic import BaseModel
 
 
 class ProductSchema(BaseModel):
-    id: int
+    id: int  # noqa
     title: str
     description: str
     created_at: datetime

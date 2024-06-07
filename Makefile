@@ -26,15 +26,19 @@ storages-logs:
 
 .PHONY: up
 up:
-	${DC} -f ${APP_FILE} -f ${STORAGES_FILE} ${ENV} up --build -d
+	${DC} -f ${APP_FILE} ${ENV} -f ${STORAGES_FILE} ${ENV} up --build -d
+
+.PHONY: down
+down:
+	${DC} -f ${APP_FILE} ${ENV} -f ${STORAGES_FILE} ${ENV} down
 
 .PHONY: logs
 logs:
 	${LOGS} ${APP_CONTAINER} -f
 
-.PHONY: down
-down:
-	${DC} -f ${APP_FILE} -f ${STORAGES_FILE} down
+.PHONY: db-logs
+db-logs:
+	${DC} -f ${STORAGES_FILE} logs -f
 
 .PHONY: migrate
 migrate:

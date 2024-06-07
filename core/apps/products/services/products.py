@@ -1,4 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import (
+    ABC,
+    abstractmethod,
+)
 from typing import Iterable
 
 from django.db.models import Q
@@ -12,7 +15,7 @@ from core.apps.products.models.products import Product as ProductDTO
 class BaseProductService(ABC):
     @abstractmethod
     def get_product_list(
-        self, filters: ProductFilters, pagination: PaginationIn
+        self, filters: ProductFilters, pagination: PaginationIn,
     ) -> Iterable[Product]: ...
 
     @abstractmethod
@@ -26,17 +29,17 @@ class ORMProductService(BaseProductService):
 
         if filters.search is not None:
             query &= Q(title__icontains=filters.search) | Q(
-                description__icontains=filters.search
+                description__icontains=filters.search,
             )
 
         return query
 
     def get_product_list(
-        self, filters: ProductFilters, pagination: PaginationIn
+        self, filters: ProductFilters, pagination: PaginationIn,
     ) -> Iterable[Product]:
         query = self._build_product_query(filters)
         qs = ProductDTO.objects.filter(query)[
-            pagination.offset : pagination.offset + pagination.limit
+            pagination.offset:pagination.offset + pagination.limit
         ]
 
         return [product.to_entity() for product in qs]

@@ -1,10 +1,13 @@
-from pydantic import Field
-
-from typing import Any, Generic, TypeVar
+from typing import (
+    Any,
+    Generic,
+    TypeVar,
+)
 
 from ninja import Schema
 
 from core.api.filters import PaginationOut
+from pydantic import Field
 
 
 TData = TypeVar("TData")
