@@ -6,3 +6,4 @@ static/*
 !static/.gitkeep
 *.sqlite*
 Readme.md
+.coverage

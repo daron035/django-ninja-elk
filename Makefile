@@ -55,3 +55,11 @@ superuser:
 .PHONY: collectstatic
 collectstatic:
 	${EXEC} ${APP_CONTAINER} ${MANAGE_PY} collectstatic
+
+.PHONY: run-test
+run-test:
+	${EXEC} ${APP_CONTAINER} pytest
+
+.PHONY: cov-test
+cov-test:
+	${EXEC} ${APP_CONTAINER} pytest --cov=core
