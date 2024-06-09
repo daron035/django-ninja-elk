@@ -14,7 +14,7 @@ repos:
         args: [--py36-plus]
 
   - repo: https://github.com/myint/autoflake
-    rev: v2.2.1
+    rev: v2.3.1
     hooks:
       - id: autoflake
         args:
@@ -59,7 +59,6 @@ repos:
             # "--config=/Users/kamilkusakov/mydoc/PyDocs/PROJECT/laced/backend/.flake8",
             "--config=.flake8",
             "--max-line-length=120",
-            "--verbose",
           ]
         exclude: .git|__pycache__
         additional_dependencies:
