@@ -13,14 +13,14 @@ class BaseSenderService(ABC):
     def send_code(self, customer: CustomerEntity, code: str) -> None: ...
 
 
-class DummySenderService(BaseSenderService):
-    def send_code(self, customer: CustomerEntity, code: str) -> None:
-        print(f"Code to user: {customer}, sent: {code}")
-
-
 class EmailSenderService(BaseSenderService):
     def send_code(self, customer: CustomerEntity, code: str) -> None:
         print(f"Sent code {code} to user email: customeremail")
+
+
+class PushSenderService(BaseSenderService):
+    def send_code(self, customer: CustomerEntity, code: str) -> None:
+        print(f"Sent push notification with {code} fcm_token")
 
 
 @dataclass

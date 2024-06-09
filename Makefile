@@ -14,7 +14,7 @@ storages:
 
 .PHONY: storages-down
 storages-down:
-	${DC} -f ${STORAGES_FILE} down
+	${DC} -f ${STORAGES_FILE} ${ENV} down
 
 .PHONY: postgres
 postgres:
