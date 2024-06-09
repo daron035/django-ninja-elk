@@ -5,13 +5,13 @@ from abc import (
 from dataclasses import dataclass
 
 from core.apps.customers.services.codes import BaseCodeService
-from core.apps.customers.services.customers import BaseCutomerService
+from core.apps.customers.services.customers import BaseCustomerService
 from core.apps.customers.services.senders import BaseSenderService
 
 
 @dataclass(eq=False)
-class BaseAuthSevice(ABC):
-    customer_service: BaseCutomerService
+class BaseAuthService(ABC):
+    customer_service: BaseCustomerService
     codes_service: BaseCodeService
     sender_service: BaseSenderService
 
@@ -22,7 +22,7 @@ class BaseAuthSevice(ABC):
     def confirm(self, code: str, phone: str): ...
 
 
-class AuthService(BaseAuthSevice):
+class AuthService(BaseAuthService):
     def authorize(self, phone: str):
         customer = self.customer_service.get_or_create(phone)
         code = self.codes_service.generate_code(customer)
