@@ -7,11 +7,21 @@ from dataclasses import dataclass
 from core.apps.customers.entities import Customer as CustomerEntity
 from core.apps.products.entities.products import Product as ProductEntity
 from core.apps.products.entities.reviews import Review as ReviewEntity
-from core.apps.products.exceptions.reviews import ReviewInvalidRating
+from core.apps.products.exceptions.reviews import (
+    ReviewInvalidRating,
+    SingleReviewError,
+)
 from core.apps.products.models.reviews import Review as ReviewDTO
 
 
 class BaseReviewService(ABC):
+    @abstractmethod
+    def check_review_exists(
+        self,
+        product: ProductEntity,
+        customer: CustomerEntity,
+    ) -> bool: ...
+
     @abstractmethod
     def save_review(
         self,
@@ -22,6 +32,15 @@ class BaseReviewService(ABC):
 
 
 class ORMReviewService(BaseReviewService):
+    def check_review_exists(
+        self,
+        product: ProductEntity,
+        customer: CustomerEntity,
+    ) -> bool:
+        return ReviewDTO.objects.filter(
+            product_id=product.id, customer_id=customer.id,
+        ).exists()
+
     def save_review(
         self,
         customer: CustomerEntity,
@@ -39,6 +58,7 @@ class ORMReviewService(BaseReviewService):
 
 
 class BaseReviewValidatorService(ABC):
+    @abstractmethod
     def validate(
         self,
         review: ReviewEntity,
@@ -57,6 +77,21 @@ class ReviewRatingValidatorService(BaseReviewValidatorService):
         # TODO: константы
         if not (1 <= review.rating <= 5):
             raise ReviewInvalidRating(rating=review.rating)
+
+
+@dataclass
+class SingleReviewValidatorService(BaseReviewValidatorService):
+    service: BaseReviewService
+
+    def validate(
+        self,
+        customer: CustomerEntity,
+        product: ProductEntity,
+        *args,
+        **kwargs,
+    ):
+        if self.service.check_review_exists(product=product, customer=customer):
+            raise SingleReviewError(product_id=product.id, customer_id=customer.id)
 
 
 @dataclass
