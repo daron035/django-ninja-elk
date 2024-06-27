@@ -9,6 +9,7 @@ from core.apps.customers.services.customers import BaseCustomerService
 from core.apps.customers.services.senders import BaseSenderService
 
 
+# TODO: перенести бизнес логику в use_case
 @dataclass(eq=False)
 class BaseAuthService(ABC):
     customer_service: BaseCustomerService
