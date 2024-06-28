@@ -6,8 +6,9 @@ from typing import (
 
 from ninja import Schema
 
-from core.api.filters import PaginationOut
 from pydantic import Field
+
+from core.api.filters import PaginationOut
 
 
 TData = TypeVar("TData")

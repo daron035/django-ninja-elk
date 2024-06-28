@@ -15,3 +15,9 @@ services:
       - postgres
     volumes:
       - ..:/app/
+    networks:
+      - elastic
+
+networks:
+  elastic:
+    driver: bridge

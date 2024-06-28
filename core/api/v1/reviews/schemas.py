@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from core.apps.products.entities.reviews import Review as ReviewEntity
 from pydantic import BaseModel
+
+from core.apps.products.entities.reviews import Review as ReviewEntity
 
 
 class ReviewInSchema(BaseModel):

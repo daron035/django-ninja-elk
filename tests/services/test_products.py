@@ -4,10 +4,11 @@
 """
 
 import pytest
+from tests.factories.products import ProductModelFactory
+
 from core.api.filters import PaginationIn
 from core.api.v1.products.filters import ProductFilters
 from core.apps.products.services.products import BaseProductService
-from tests.factories.products import ProductModelFactory
 
 
 @pytest.mark.django_db
